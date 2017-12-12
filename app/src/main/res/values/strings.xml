@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Talking Kotlin</string>
+    <string name="settings">Settings</string>
+    <string name="action_settings">Settings</string>
+    <string name="playback_speed">Playback Speed</string>
+    <string name="speed_format">%sx</string>
+    <string name="no_data">This application needs an Internet Connection :(</string>
+    <string name="network_settings">Network Settings</string>
+    <string name="no_internet_connection">No Internet connection</string>
+    <string name="stopped">Stopped</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="carry_on">Continue?</string>
+    <string name="carry_on_message">This episode was started previously, do you wish to continue?</string>
+    <string name="continue_action">Continue</string>
+    <string name="restart_action">Restart</string>
+    <string name="switch_title">Switch?</string>
+    <string name="switch_message">Are you sure you want to switch to another episode?</string>
+    <string name="switch_action">Switch</string>
+    <string name="no">No</string>
+    <string name="play_episode_from_link">Play episode</string>
+</resources>
