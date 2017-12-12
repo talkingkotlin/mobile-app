@@ -1,6 +1,6 @@
 # Talking Kotlin Android App
 
-[![Hex.pm](https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.talkingkotlin)
+[![Hex.pm](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=com.talkingkotlin)
 
 Hi there! This is an android app for TalkingKotlin.com, a podcast about all the Kotlin things.
 
