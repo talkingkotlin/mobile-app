@@ -25,7 +25,7 @@ Hi there! This is an android app for TalkingKotlin.com, a podcast about all the 
 
 ## Contribute!
 
-This project was started by ([Alexander Gherschon](https://twitter.com/galex)), and of course, you are more than welcome to contribute to this project.
+This project was started by [Alexander Gherschon](https://twitter.com/galex), and of course, you are more than welcome to contribute to this project.
 
 The only thing I would kindly like to ask is to not publish this app yourself on the Play Store, but to contribute to this project and work together to improve it!
 
