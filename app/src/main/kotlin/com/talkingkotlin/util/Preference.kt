@@ -3,6 +3,7 @@ package com.talkingkotlin.util
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 /**
@@ -10,15 +11,20 @@ import kotlin.reflect.KProperty
  * @author Alexander Gherschon
  */
 
-class Preference<T>(private val context: Context, private val name: String, private val default: T) {
+class Preference<T>(
+        private val context: Context,
+        private val name: String,
+        private val default: T): ReadWriteProperty<Any?, T> {
 
     private val prefs: SharedPreferences by lazy {
         context.getSharedPreferences("default", Context.MODE_PRIVATE)
     }
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): T = findPreference(name, default)
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T {
+        return findPreference(name, default)
+    }
 
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+    override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         putPreference(name, value)
     }
 
@@ -36,7 +42,7 @@ class Preference<T>(private val context: Context, private val name: String, priv
     }
 
     @SuppressLint("CommitPrefEdits")
-    private fun <U> putPreference(name: String, value: U) = with(prefs.edit()) {
+    private fun <T> putPreference(name: String, value: T) = with(prefs.edit()) {
         when (value) {
             is Long -> putLong(name, value)
             is String -> putString(name, value)

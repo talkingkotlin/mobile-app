@@ -33,7 +33,7 @@ class EpisodesFragment : Fragment() {
         var CHILD_LOADER = 1
         var CHILD_EMPTY_VIEW = 2
 
-        val EXTRA_EPISODE_TITLE = "EXTRA_EPISODE_TITLE"
+        const val EXTRA_EPISODE_TITLE = "EXTRA_EPISODE_TITLE"
 
         fun newInstance(episodeTitle: String?): Fragment {
 

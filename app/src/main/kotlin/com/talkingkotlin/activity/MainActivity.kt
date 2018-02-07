@@ -19,7 +19,7 @@ import com.talkingkotlin.presenter.MainPresenter
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        private val FRAGMENT_TAG = "FRAGMENT_TAG"
+        private const val FRAGMENT_TAG = "FRAGMENT_TAG"
     }
 
     // lazy loading of the presenter

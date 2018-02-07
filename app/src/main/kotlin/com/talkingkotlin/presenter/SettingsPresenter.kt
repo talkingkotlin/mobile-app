@@ -28,7 +28,8 @@ class SettingsPresenter(private val context: Context, private val callback: Sett
     fun onCreate() {
 
         val playbackSpeed: Float by Preference(context, PLAYBACK_SPEED, 1f)
-        val currentValue = speedToProgress(playbackSpeed)
+        val playBackValue = playbackSpeed
+        val currentValue = speedToProgress(playBackValue)
         val maxValue = 5
         callback.setValues(playbackSpeed.toString(), currentValue, maxValue)
     }

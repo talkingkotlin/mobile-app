@@ -32,13 +32,12 @@ class EpisodesAdapter(private var items: List<Item>?, private val listener: (Ite
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.episode_card, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.episode_card, parent, false), listener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val item = items!![position]
-        holder.bind(item, listener)
+        holder.bind(items!![position])
     }
 
     override fun getItemCount() = items?.size ?: 0
@@ -48,12 +47,18 @@ class EpisodesAdapter(private var items: List<Item>?, private val listener: (Ite
     /**
      * View Holder class for Episodes views
      */
-    class ViewHolder(override val containerView: View?) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class ViewHolder(override val containerView: View?, listener: (Item) -> Unit) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         // keeps the loaded url in a property to avoid reloading with the same url
         private var url: String? = null
+        // instantiate the onClickListener only once (so no SAM conversion happens in the bind() function
+        private val onClickListener = View.OnClickListener {
+            items?.get(adapterPosition)?.let {
+                item -> listener.invoke(item)
+            }
+        }
 
-        fun bind(item: Item, listener: (Item) -> Unit) {
+        fun bind(item: Item) {
 
             date.text = simpleDateFormatter.format(item.pubDate)
             name.text = item.title
@@ -79,7 +84,7 @@ class EpisodesAdapter(private var items: List<Item>?, private val listener: (Ite
             this.progress.max = duration // GODAMNIT ANDROID IF MAX IS SET AFTER PROGRESS IT DOES NOT DRAW THE FIRST TIME
             this.progress.progress = position
 
-            card.setOnClickListener { listener(item) }
+            card.setOnClickListener(onClickListener)
         }
     }
 

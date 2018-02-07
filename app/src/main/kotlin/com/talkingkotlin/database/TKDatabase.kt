@@ -12,7 +12,7 @@ import com.talkingkotlin.util.SingletonHolder
  * Database definition with a Singleton holder for our database instance
  * @author Alexander Gherschon
  */
-@Database(entities = arrayOf(Item::class), version = 5, exportSchema = false)
+@Database(entities = [(Item::class)], version = 5, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class TKDatabase : RoomDatabase() {
     abstract fun itemDao(): ItemDao

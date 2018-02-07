@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#1A237E</color>
     <color name="colorAccent">#03A9F4</color>
     <color name="gray">#c9c9c9</color>
+    <color name="electric_violet">#AD32FE</color>
+
+    <color name="fuchsia_pink">#AD32D1</color>
+
 </resources>

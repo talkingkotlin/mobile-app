@@ -60,8 +60,8 @@ class PlayerControlsPresenter(private val callback: PlayerControlsCallback): Lif
 
     @Subscribe
     fun onPlayerStateEvent(playerState: PlayerState) {
-        if (playerState is PlayerState.Itemized) {
 
+        if (playerState is PlayerState.Itemized) {
             val title = playerState.item.title
             val pictureUrl = playerState.item.image!!.href!!
             val iconRes = if (playerState is PlayerState.Paused) R.drawable.ic_play_arrow_black_36dp else R.drawable.ic_pause_black_36dp // TODO change to an AVD, if Nick sees this he will kill me

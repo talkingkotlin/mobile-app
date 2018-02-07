@@ -19,10 +19,8 @@ class Duration @JvmOverloads constructor(
         @field:Text var value: String? = null) : Serializable {
 
     companion object {
-        private var durationFormatter = SimpleDateFormat(DURATION_TIME_FORMAT, Locale.ENGLISH)
-
-        init {
-            durationFormatter.timeZone = TimeZone.getTimeZone("UTC")
+        private var durationFormatter = SimpleDateFormat(DURATION_TIME_FORMAT, Locale.ENGLISH).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
         }
     }
 
