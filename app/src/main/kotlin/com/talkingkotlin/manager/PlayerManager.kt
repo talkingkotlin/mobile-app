@@ -12,12 +12,13 @@ import android.media.AudioFocusRequest
 import android.media.AudioManager
 import android.media.AudioManager.OnAudioFocusChangeListener
 import android.media.session.MediaSessionManager
-import android.net.Uri
 import android.os.Build
 import android.os.CountDownTimer
 import android.support.v4.app.NotificationCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
+import androidx.content.systemService
+import androidx.net.toUri
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.PlaybackParameters
@@ -97,7 +98,7 @@ class PlayerManager(private val callback: PlayerPresenterCallback) {
             })
 
             // media session stuff
-            mediaSessionManager = context.getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
+            mediaSessionManager = context.systemService<MediaSessionManager>()
             mediaSession = MediaSessionCompat(context, "MusicService")
             mediaController = MediaControllerCompat(context, mediaSession!!.sessionToken)
             mediaSession?.setCallback(object : MediaSessionCompat.Callback() {
@@ -115,7 +116,7 @@ class PlayerManager(private val callback: PlayerPresenterCallback) {
                 }
             })
 
-            audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager = context.systemService<AudioManager>()
 
             onAudioFocusChange = object : OnAudioFocusChangeListener {
                 override fun onAudioFocusChange(focusChange: Int) {
@@ -232,7 +233,7 @@ class PlayerManager(private val callback: PlayerPresenterCallback) {
             val dataSourceFactory = DefaultDataSourceFactory(context, "Talking-Kotlin-Android")
             val extractorsFactory = DefaultExtractorsFactory()
 
-            val mediaSource = ExtractorMediaSource(Uri.parse(currentItem!!.enclosure!!.url),
+            val mediaSource = ExtractorMediaSource(currentItem!!.enclosure!!.url!!.toUri(),
                     dataSourceFactory,
                     extractorsFactory,
                     null, null)
@@ -316,6 +317,7 @@ class PlayerManager(private val callback: PlayerPresenterCallback) {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.O)
     private fun showNotification(context: Context, action: String) {
         val style = android.support.v4.media.app.NotificationCompat.MediaStyle()
                 .setMediaSession(mediaSession!!.sessionToken)
@@ -329,7 +331,7 @@ class PlayerManager(private val callback: PlayerPresenterCallback) {
             val importance = NotificationManager.IMPORTANCE_LOW
             val notificationChannel = NotificationChannel(channelId, channelName, importance)
 
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager = context.systemService<NotificationManager>()
             notificationManager.createNotificationChannel(notificationChannel)
         }
 

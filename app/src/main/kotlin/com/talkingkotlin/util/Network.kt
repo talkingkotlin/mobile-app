@@ -2,6 +2,7 @@ package com.talkingkotlin.util
 
 import android.content.Context
 import android.net.ConnectivityManager
+import androidx.content.systemService
 
 /**
  * Extension Functions related to Network management
@@ -9,7 +10,7 @@ import android.net.ConnectivityManager
  */
 
 fun Context.isConnected(): Boolean {
-    val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val cm = systemService<ConnectivityManager>()
     val activeNetwork = cm.activeNetworkInfo
     return activeNetwork != null && activeNetwork.isConnectedOrConnecting
 }

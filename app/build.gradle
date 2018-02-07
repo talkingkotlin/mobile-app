@@ -82,6 +82,7 @@ dependencies {
     implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'androidx.core:core-ktx:0.1'
 
 
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
