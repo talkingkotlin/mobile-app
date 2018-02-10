@@ -59,7 +59,7 @@ class EpisodesPresenter(private val fragment: Fragment, private val callback: Ep
         EventBus.getDefault().register(this)
 
         itemsViewModel = ViewModelProviders.of(fragment).get(ItemsViewModel::class.java).apply {
-            getItems(fragment.context!!).observe(fragment, Observer<Resource<List<Item>>> { resource ->
+            getItems().observe(fragment, Observer<Resource<List<Item>>> { resource ->
 
                 callback.apply {
                     if (fragment.context!!.isConnected()) {
