@@ -1,9 +1,9 @@
 package com.talkingkotlin.viewmodel
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.ViewModel
-import android.content.Context
 import com.talkingkotlin.database.TKDatabase
 import com.talkingkotlin.model.network.Resource
 import com.talkingkotlin.model.rss.Item
@@ -18,7 +18,7 @@ import com.talkingkotlin.repository.RssFeedRepository
  * @author Alexander Gherschon
  */
 
-class ItemsViewModel : ViewModel() {
+class ItemsViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
         private val TAG = ItemsViewModel::class.java.simpleName
@@ -35,25 +35,25 @@ class ItemsViewModel : ViewModel() {
     /**
      * Gets the items from the database and triggers a network update of the list of items
      */
-    fun getItems(context: Context): LiveData<Resource<List<Item>>> {
+    fun getItems(): LiveData<Resource<List<Item>>> {
 
         // Use the existing data from the Items table and observe it (through Room)
-        mediator.addSource(TKDatabase.getInstance(context).itemDao().getAll(), { items ->
+        mediator.addSource(TKDatabase.getInstance(getApplication()).itemDao().getAll(), { items ->
             // no data yet in the table, we will presume we need to load for the first time the table
             mediator.value = if (items == null || items.isEmpty()) Resource.Loading() else Resource.Success(items)
         })
 
         // update the list of items with a network call
-        updateItems(context)
+        updateItems()
         return mediator
     }
 
     /**
      * Updates the items from a network call and manages the other states (no data, error loading) depending on the mediator state
      */
-    private fun updateItems(context: Context) {
+    private fun updateItems() {
 
-        val networkRequest = feedRepository.getFeed(context)
+        val networkRequest = feedRepository.getFeed(getApplication())
         // add the request data as a a source, and act on its data
         mediator.addSource(networkRequest, { resource: Resource<Rss>? ->
             // we get updates from observing the database, so here we will only pay attention to the status ERROR
